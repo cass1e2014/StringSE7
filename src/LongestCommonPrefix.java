@@ -19,6 +19,7 @@ public class LongestCommonPrefix {
 					&& strs[i].charAt(j) == prefix.charAt(j)) {
 				j++;
 			}
+			//如果strs[]中有string是空的
 			if (j == 0) {
 				return "";
 			}

@@ -28,18 +28,48 @@ public class LongestSubstringWithoutRepeatingCharacters {
 		int leftbound = 0;
 		for (int i = 0; i < s.length(); i++) {
 			if (set.contains(s.charAt(i))) {
-				// 只要左右bound不相等
 				while (leftbound < i && s.charAt(leftbound) != s.charAt(i)) {
-					// 因为出现重复元素，所以现在窗口内的东西实效，左窗口移动，且记得把该元素从set中remove掉！
+					// 当遇到相同的字符，如果不是重复元素，从set中移除
 					set.remove(s.charAt(i));
 					leftbound++;
 				}
-				leftbound ++;
+				leftbound ++;//若是重复元素，把左bound右移，不再考虑那个字符
 			} else {
-				set.add(s.charAt(i));
+				set.add(s.charAt(i));//只要遇到不相同的字符不断加到set中
 				max = Math.max(max, i - leftbound + 1);
 			}
 		}
 		return max;
 	}
+	
+	public int lengthOfLongestSubstringII(String s) {
+        if(s == null || s.length() ==0){
+            return 0;
+        }
+        
+        boolean[] flag = new boolean[256];//走过的格子，遇到过该字符的，就把格子从true翻到false
+        
+        char[] charArray = s.toCharArray();
+        
+        int result = 0;
+        int start = 0;
+        for(int i = 0; i < charArray.length ; i++){
+            char current = charArray[i];
+            if(flag[current]){
+                result = Math.max(result, i - start);
+                for(int j = start; j < i; j++){//过一遍没有重复字符的abc，把start往后移一位，不再考虑重复的a
+                    if(charArray[j] == current){
+                        start = j + 1;
+                        break;
+                    }
+                    //"abcabcbb" 当遇到第二个a，要把bc的格子从true翻到false
+                    flag[charArray[j]] = false;
+                }
+            }else{
+                flag[current] = true;
+            }
+        }
+        result = Math.max (charArray.length - start, result);
+        return result;
+    }
 }

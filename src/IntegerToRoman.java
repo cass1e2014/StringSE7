@@ -9,7 +9,7 @@ public class IntegerToRoman {
 
 	public static void main(String[] args) {
 		IntegerToRoman itr = new IntegerToRoman();
-		String result = itr.intToRoman(7);
+		String result = itr.intToRoman(25);
 		System.out.println("Integer to Roman: " + result);
 	}
 

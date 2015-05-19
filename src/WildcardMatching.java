@@ -39,7 +39,7 @@ public class WildcardMatching {
 				 * i一直往后找，看能不能找到一个字符和p在*后的第一个字符正好一样，剩下的再继续比较下去
 				*/
 			}else if(star != -1){
-				j = star + 1;
+				j = star ;
 				i = ++mark;
 			}else{
 				return false;
@@ -55,7 +55,7 @@ public class WildcardMatching {
 	
 	public static void main(String[] args){
 		System.out.println(isMatch("aab", "c*a*b"));
-		System.out.println(isMatch("aa", "*"));
+		System.out.println(isMatch("aa", "?*"));
 		System.out.println(isMatch("aabc", "a*c"));
 	}
 }

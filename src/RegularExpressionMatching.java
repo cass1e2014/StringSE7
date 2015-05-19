@@ -2,17 +2,12 @@
  * Implement regular expression matching with support for '.' and '*'. '.'
  * Matches any single character. '*' Matches zero or more of the preceding
  * element. The matching should cover the entire input string (not partial). The
- * function prototype should be: bool isMatch(const char *s, const char *p) 
- * Some examples: 
- * isMatch("aa","a") → false 
- * isMatch("aa","aa") → true
- * isMatch("aaa","aa") → false 
- * isMatch("aa", "a*") → true 
- * isMatch("aa", ".*") → true
- * isMatch("ab", ".*") → true 
- * isMatch("aab", "c*a*b") → true
+ * function prototype should be: bool isMatch(const char *s, const char *p) Some
+ * examples: isMatch("aa","a") → false isMatch("aa","aa") → true
+ * isMatch("aaa","aa") → false isMatch("aa", "a*") → true isMatch("aa", ".*") →
+ * true isMatch("ab", ".*") → true isMatch("aab", "c*a*b") → true
  */
-////////和WildcardMatching一起记!!! /////////
+// //////和WildcardMatching一起记!!! /////////
 /*
  * 首先要理解题意: "a"对应"a", 这种匹配不解释了 任意字母对应".", 这也是正则常见 0到多个相同字符x,对应"x*",
  * 比起普通正则,这个地方多出来一个前缀x. x代表的是 相同的字符中取一个,比如"aaaab"对应是"a*b"
@@ -26,40 +21,75 @@
  */
 
 public class RegularExpressionMatching {
-	
-	//recursion
+
+	// recursion
 	public static boolean isMatch(String s, String p) {
-		//1.不能写if(s.length() == 0) return p.length() == 0; 因为有可能p后面是*
-		if(p.length() == 0){
+		// 1.不能写if(s.length() == 0) return p.length() == 0; 因为有可能p后面是*
+		// base case
+		if (p.length() == 0) {
 			return s.length() == 0;
 		}
-		
-		//2.判断p和s的长度为1的情况
-		if(p.length() == 1){
-			return (s.length() == 1) && (p.charAt(0) == s.charAt(0) || p.charAt(0) == '.');
-		}
-		
-		//当下一个字符不是*的时候
-		if(p.charAt(1) != '*'){
-			if(s.length() == 0){
+
+		// special case
+		if (p.length() == 1) {
+
+			// if the length of s is 0, return false
+			if (s.length() < 1) {
 				return false;
-			}else{
-				return (s.charAt(0) == p.charAt(0) || p.charAt(0) == '.') && isMatch(s.substring(1), p.substring(1));
 			}
-		}else{
-			//'*' Matches zero or more of the preceding element.因为这个相当于*可以把它的前缀字母”吃掉“
-			while(s.length() > 0 && s.charAt(0) == p.charAt(0) || p.charAt(0) == '.'){
-				if(isMatch(s, p.substring(2))){ //s后面都是重复值的情况
+
+			/*
+			 * if the first char of s and the first char of p is not the same,
+			 * and the char of p is not '.', return false
+			 */
+			else if ((p.charAt(0) != s.charAt(0)) && (p.charAt(0) != '.')) {
+				return false;
+			}
+
+			// otherwise, compare the rest of the string of s and p.
+			else {
+				return isMatch(s.substring(1), p.substring(1));
+			}
+		}
+
+		// case 1: when the second char of p is not '*', easy case.
+		if (p.charAt(1) != '*') {
+			if (s.length() < 1) {
+				return false;
+			}
+			if ((p.charAt(0) != s.charAt(0)) && (p.charAt(0) != '.')) {
+				return false;
+			} else {
+				return isMatch(s.substring(1), p.substring(1));
+			}
+		}
+
+		// case 2: when the second char of p is '*', complex case.
+		else {
+
+			// when the '*' stands for 0 preceding element
+			if (isMatch(s, p.substring(2))) {
+				return true;
+			}
+
+			/*
+			 * when the '*' stands for 1 or more preceding element, try every
+			 * possible number
+			 */
+			int i = 0;
+			while (i < s.length()
+					&& (s.charAt(i) == p.charAt(0) || p.charAt(0) == '.')) {
+				if (isMatch(s.substring(i + 1), p.substring(2))) {
 					return true;
 				}
-				s = s.substring(1);	//吃掉前面打字母
+				i++;
 			}
-			return isMatch(s, p.substring(2));
+			return false;
 		}
 	}
-	
+
 	public static void main(String[] args) {
-		System.out.println(isMatch("aab", "c*a*b"));
+		System.out.println(isMatch("aaaaaa", "a*"));
 	}
 
 }

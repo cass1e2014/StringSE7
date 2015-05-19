@@ -26,7 +26,7 @@ public class ValidParentheses {
 		return stack.isEmpty();
 	}
 	
-	public boolean is_valid(char c1, char c2){
+	public boolean is_valid(Character c1, Character c2){
 		return (c1 == '(' && c2 == ')' || c1 == '{' && c2 == '}' || c1 == '[' && c2 == ']');
 	}
 	
