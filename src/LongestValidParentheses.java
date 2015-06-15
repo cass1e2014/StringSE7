@@ -41,7 +41,7 @@ public class LongestValidParentheses {
 						accumulatedLength += matchedLength;
 						matchedLength = accumulatedLength;
 					} else {
-						matchedLength = i - stack.peek();
+						matchedLength = i - stack.peek(); //** ()(())
 					}
 					maxLength = Math.max(maxLength, matchedLength);
 				}

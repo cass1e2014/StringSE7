@@ -14,31 +14,32 @@ import java.util.Stack;
  */
 
 public class EvaluateReversePolishNotation {
-	// stack， 每次把非＋－＊／的push到stack，
-	public int evalRPN(String[] tokens) {
-		if (tokens == null) {
-			return 0;
-		}
+	public static int evalRPN(String[] tokens) {
+		if(tokens == null || tokens.length == 0){
+            return 0;
+        }
+        
+        //如果非运算符号，推入stack，做运算，结果还是推入stack
+        Stack<Integer> s = new Stack<Integer>();
+        String operators = "+-*/";
+        for(String token : tokens){
+            if(!operators.contains(token)){
+                s.push(Integer.valueOf(token));
+                continue;
+            }
 
-		Stack<Integer> stack = new Stack<Integer>();
-		String operators = "+-*/";
-		for (String token : tokens) {
-			if (!operators.contains(token)) {
-				stack.push(Integer.valueOf(token));
-				continue;//没有operator的话就不必要做无谓的判断，可以用continue跳过
-			}
-			int num1 = stack.pop();
-			int num2 = stack.pop();
-			if (token.equals("+")) {
-				stack.push(num1 + num2);
-			} else if (token.equals("-")) {
-				stack.push(num1 - num2);
-			} else if (token.equals("*")) {
-				stack.push(num1 * num2);
-			} else if (token.equals("/")) {
-				stack.push(num1 / num2);
-			}
-		}
-		return stack.pop();
+            int a = s.pop();
+            int b = s.pop();
+            if(token.equals("+")) {
+                s.push(b + a);
+            } else if(token.equals("-")) {
+                s.push(b - a);
+            } else if(token.equals("*")) {
+                s.push(b * a);
+            } else {
+                s.push(b / a);
+            }
+        }
+        return s.pop();
 	}
 }

@@ -22,35 +22,30 @@
  */
 public class WildcardMatching {
 	public static boolean isMatch(String s, String p) {
-		int i = 0;
-		int j = 0;
-		int star = -1;
-		int mark = -1;
-		
-		while(i < s.length()){
-			if(j < p.length() && (s.charAt(i) == p.charAt(j) || p.charAt(j) == '?')){
-				++i;
-				++j;
-			}else if(j < p.length() && p.charAt(j) == '*'){
-				star = ++j;
-				mark = i;
-				/*此种情况是，当遇到*的时候，j移动到*后一个，和i比较。
-				 * 因为*可以代表一连串到任意字符，所以这个时候就要看i
-				 * i一直往后找，看能不能找到一个字符和p在*后的第一个字符正好一样，剩下的再继续比较下去
-				*/
-			}else if(star != -1){
-				j = star ;
-				i = ++mark;
-			}else{
-				return false;
-			}
-		}
-		//判断*在p的最末尾的情况
-		while(j < p.length() && p.charAt(j) == '*'){
-			++j;
-		}
-		
-		return j == p.length();//***important!
+		int i = 0; 
+        int j = 0;
+        int star = -1;
+        int mark = -1;
+        while(i < s.length()){
+            if(j < p.length() && (s.charAt(i) == p.charAt(j) || p.charAt(j) == '?')){
+                i++;
+                j++;
+            }else if(j < p.length() && p.charAt(j) == '*'){
+                star = ++j;//遇到*,先把j往后移一位，再用star记录下此时位置
+                mark = i;//mark标记i的位置，i不动
+            }else if(star != -1){
+                //如果在遇到*，j移动后，此刻相同位置的字符还是不同，则移动i，只要在P string范围内i一直往后移看能否找到和*后相同的字符
+                j = star;
+                i = ++mark;
+            }else{
+                return false;
+            }
+        }
+        //如果s string已经过完，*在p string末尾，则继续移动j，因为*可对应empty sequence
+        while(j < p.length() && p.charAt(j) == '*'){
+            j++;
+        }
+        return j == p.length();
 	}
 	
 	public static void main(String[] args){
