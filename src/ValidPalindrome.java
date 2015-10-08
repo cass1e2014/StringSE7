@@ -32,6 +32,10 @@ public class ValidPalindrome {
 				front++;
 			}
 
+			if(front == s.length()){
+                return true;//for empty String ".,,,"
+            }
+			
 			while (end >= 0 && !isValid(s.charAt(end))) {
 				end--;
 			}

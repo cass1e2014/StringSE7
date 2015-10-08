@@ -1,23 +1,45 @@
+import java.util.Stack;
+
 /*
  * Given an input string, reverse the string word by word. 
  * For example, Given s = "the sky is blue", return "blue is sky the".
  */
 public class ReverseWordsInAString {
 	public static String reverseWords(String s) {
-		if (s.length() == 0 || s == null) {
-			return "";
-		}
-
-		String[] array = s.split(" ");
-		StringBuilder sb = new StringBuilder();
-
-		for (int i = array.length - 1; i >= 0; i--) {
-			//如果不为空的话
-			if (!array[i].equals("")) {
-				sb.append(array[i]).append(" ");
-			}
-		}
-		return sb.length() == 0 ? "" : sb.substring(0, sb.length() - 1); //注意这里要去掉最后一个单词后append上去的那个空格
+		if(s == null || s.length() == 0){
+            return s;
+        }   
+        
+        Stack<String> set = new Stack<String>();
+        int start = 0;
+        boolean prevIsChar = false;
+        for(int i = 0; i < s.length(); i++){
+            //第一个单词
+            if(!prevIsChar && s.charAt(i) != ' '){
+                prevIsChar = true;
+                start = i;
+            }
+            
+            //之后的每一个单词
+            if(prevIsChar && s.charAt(i) == ' '){
+                prevIsChar = false;
+                set.add(s.substring(start, i));
+            }
+        }
+        //最后一个单词
+        if(prevIsChar && s.charAt(s.length() - 1) != ' '){
+            set.add(s.substring(start));
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        while(!set.empty()){
+            sb.append(set.pop());
+            //最后一个单词加了以后不需要再加空格了
+            if(!set.empty()){
+                sb.append(" ");
+            }
+        }
+        return sb.toString();
 	}
 
 	public static void main(String[] args) {
