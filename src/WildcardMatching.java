@@ -21,6 +21,7 @@
  * 贪心的策略，能匹配就一直往后遍历，匹配不上了就看看前面有没有'*'来救救场，再从'*'后面接着试。
  */
 public class WildcardMatching {
+	//Greedy
 	public static boolean isMatch(String s, String p) {
 		int i = 0; 
         int j = 0;

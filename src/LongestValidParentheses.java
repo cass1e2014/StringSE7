@@ -17,7 +17,7 @@ import java.util.Stack;
  * 因为只需要一遍扫描，算法的时间复杂度是O(n)，空间复杂度是栈的空间，最坏情况是都是左括号，所以是O(n)。
  */
 public class LongestValidParentheses {
-	public int longestValidParentheses(String s) {
+	public static int longestValidParentheses(String s) {
 		if (s == null || s.length() == 0) {
 			return 0;
 		}
@@ -40,13 +40,17 @@ public class LongestValidParentheses {
 					if (stack.isEmpty()) {
 						accumulatedLength += matchedLength;
 						matchedLength = accumulatedLength;
-					} else {
-						matchedLength = i - stack.peek(); //** ()(())
-					}
+					} else{
+						matchedLength = i - stack.peek() ; // ** (()()
+                    }
 					maxLength = Math.max(maxLength, matchedLength);
 				}
 			}
 		}
 		return maxLength;
+	}
+	
+	public static void main(String[] args){
+		System.out.println(longestValidParentheses("(()()"));
 	}
 }

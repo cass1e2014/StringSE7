@@ -44,9 +44,38 @@ public class CountAndSay {
 		}
 		return oldString;
 	}
+	
+	
+	public String countAndSay2(int n) {
+        if(n <= 0)  return "";
+        int start = 1;
+        String oldString = "1";
+        while(start < n){
+            StringBuilder sb = new StringBuilder();
+            char[] oldChar = oldString.toCharArray();
+            char prev = oldChar[0];
+            int count = 1;
+            for(int i = 1; i < oldChar.length; i++){
+                char c = oldChar[i];
+                if(c == prev){
+                    count ++;
+                }else{
+                	sb.append(count);
+                    sb.append(prev);
+                    prev = c;
+                    count = 1;
+                }
+            }
+            sb.append(count);
+            sb.append(prev);
+            oldString = sb.toString();
+            start ++;
+        }
+        return oldString;
+    }
 
 	public static void main(String[] args) {
 		CountAndSay c = new CountAndSay();
-		System.out.println(c.countAndSay(5));
+		System.out.println(c.countAndSay2(4));
 	}
 }

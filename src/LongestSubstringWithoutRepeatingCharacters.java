@@ -30,7 +30,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
 			if (set.contains(s.charAt(i))) {
 				while (leftbound < i && s.charAt(leftbound) != s.charAt(i)) {
 					// 当遇到相同的字符，如果不是重复元素，从set中移除
-					set.remove(s.charAt(i));
+					set.remove(s.charAt(leftbound));
 					leftbound++;
 				}
 				leftbound ++;//若是重复元素，把左bound右移，不再考虑那个字符

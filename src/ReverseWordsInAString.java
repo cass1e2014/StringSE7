@@ -20,7 +20,7 @@ public class ReverseWordsInAString {
                 start = i;
             }
             
-            //之后的每一个单词
+            //最后一个单词
             if(prevIsChar && s.charAt(i) == ' '){
                 prevIsChar = false;
                 set.add(s.substring(start, i));
