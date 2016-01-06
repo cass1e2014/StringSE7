@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * 
  */
 public class simplifyPath {
-	public String simplifyPath(String path) {
+	public static String simplifyPath(String path) {
 		if(path == null || path.length() == 0){
 			return null;
 		}
@@ -41,5 +41,9 @@ public class simplifyPath {
 			result = result.substring(0, result.length() - 1);//要去掉最后一位"/"
 		}
 		return result;
+	}
+	
+	public static void main(String[] args){
+		System.out.println(simplifyPath("/a/./b/../../c/"));
 	}
 }

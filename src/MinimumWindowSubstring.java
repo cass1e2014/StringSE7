@@ -51,14 +51,15 @@ public class MinimumWindowSubstring {
 				// |prev, i| of S contains all T's character, now shift the left
 				// pointer(prev)
 				while (count == t.length()) {
-					char prevChar = s.charAt(prev);
+					char leftBound = s.charAt(prev);
 					// if prevChar character exists in T
-					if (map.containsKey(prevChar)) {
+					if (map.containsKey(leftBound)) {
 						// add back
-						map.put(prevChar, map.get(prevChar) + 1);
+						map.put(leftBound, map.get(leftBound) + 1);
 
 						// |prev, i| is the min substring ending at i
-						if (map.get(prevChar) > 0) {
+						//如果从map中得到的数是负数，表示维护的这个minLenth中有的字母的出现次数多于T中相对应字母的出现字数
+						if (map.get(leftBound) > 0) {
 							if (minLength > i - prev + 1) {
 								minLength = i - prev + 1;
 								minStart = prev;
@@ -79,8 +80,8 @@ public class MinimumWindowSubstring {
 	}
 
 	public static void main(String[] args) {
-		String S = "ADOBECODEBANC";
-		String T = "ABC";
+		String S = "bba";
+		String T = "ab";
 		MinimumWindowSubstring m = new MinimumWindowSubstring();
 		System.out.println(m.minWindow(S, T));
 	}

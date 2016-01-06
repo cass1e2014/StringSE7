@@ -14,19 +14,19 @@ public class ReverseWordsInAString {
         int start = 0;
         boolean prevIsChar = false;
         for(int i = 0; i < s.length(); i++){
-            //第一个单词
+            //每个单词的第一个字母
             if(!prevIsChar && s.charAt(i) != ' '){
                 prevIsChar = true;
                 start = i;
             }
             
-            //最后一个单词
+            //每个单词的最后一个字母
             if(prevIsChar && s.charAt(i) == ' '){
                 prevIsChar = false;
                 set.add(s.substring(start, i));
             }
         }
-        //最后一个单词
+        //最后一个字母
         if(prevIsChar && s.charAt(s.length() - 1) != ' '){
             set.add(s.substring(start));
         }

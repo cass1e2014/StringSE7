@@ -15,7 +15,7 @@
  * 
  */
 public class StringCompressionUsingCountOfRepeatedCharacters {
-	public String compression(String s) {
+	public static String compression(String s) {
 		StringBuffer sb = new StringBuffer();
 		int count = 1;
 		char prev = s.charAt(0);
@@ -38,5 +38,9 @@ public class StringCompressionUsingCountOfRepeatedCharacters {
 		} else {
 			return sb.toString();
 		}
+	}
+	
+	public static void main(String[] args){
+		System.out.println(compression("abbccc"));
 	}
 }

@@ -89,7 +89,7 @@ public class RegularExpressionMatching {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(isMatch("aaaaaa", "a*"));
+		System.out.println(isMatch("aab", "c*a*b"));
 	}
 
 }

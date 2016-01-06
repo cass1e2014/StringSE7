@@ -50,8 +50,6 @@ public class WildcardMatching {
 	}
 	
 	public static void main(String[] args){
-		System.out.println(isMatch("aab", "c*a*b"));
-		System.out.println(isMatch("aa", "?*"));
-		System.out.println(isMatch("aabc", "a*c"));
+		System.out.println(isMatch("aab", "*ab"));
 	}
 }
